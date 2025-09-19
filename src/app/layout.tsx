@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Encode_Sans } from "next/font/google";
 import "./globals.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import { Navbar } from "./_Component/Navbar/Navbar";
+import Footer from "./_Component/Footer/Footer";
+import { Toaster } from "@/components/ui/sonner";
+import UserProvider from "./UserProvider";
+import CouontProvider from "@/CountProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const Encode_SansFont = Encode_Sans({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -24,10 +27,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${Encode_SansFont.className}`}>
+        <UserProvider>
+          <CouontProvider>
+            <Navbar />
+            <main className="p-5">{children}</main>
+            <Toaster />
+            <Footer />
+          </CouontProvider>
+        </UserProvider>
       </body>
     </html>
   );
