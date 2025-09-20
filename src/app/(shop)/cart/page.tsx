@@ -256,12 +256,15 @@ export default function Cart() {
                 </div>
 
                 <div className="p-3 mb-3 ">
-                  <Button className="w-full bg-main mt-5 cursor-pointer">
+                  <Button
+                    asChild
+                    className="w-full bg-main mt-5 cursor-pointer"
+                  >
                     <Link
-                      className="text-white"
-                      href={"/checkoutsession/" + cartItem._id}
+                      href={`/checkoutsession/${cartItem._id}`}
+                      className="text-white!"
                     >
-                      check Pay Menet
+                      Check Payment
                     </Link>
                   </Button>
                 </div>

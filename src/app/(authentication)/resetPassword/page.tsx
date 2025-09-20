@@ -86,7 +86,7 @@ export default function ResetPassword() {
           content="Reset your account password securely by entering your email and creating a new password with strong security requirements."
         />
       </Head>
-      <div className="w-2/4 mx-auto my-10 shadow-2xl p-13 rounded-2xl ">
+      <div className=" mx-auto my-10 sm:w-3/4 md:w-3/4 lg:w-3/4 xl:w-2/4 shadow-2xl p-13 rounded-2xl ">
         <Form {...ResetPasswordForm}>
           <form
             action=""

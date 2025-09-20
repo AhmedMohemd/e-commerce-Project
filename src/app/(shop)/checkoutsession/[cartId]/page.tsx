@@ -28,7 +28,7 @@ const shippingSchema = z.object({
   city: z.string().min(2, { message: "City is required." }),
 });
 export default function Checkoutsession() {
-    const [loder] = useState<boolean>(true);
+  const [btnloder, setBtnLoder] = useState<boolean>(true);
   const { cartId }: { cartId: string } = useParams();
   const shippingForm = useForm({
     resolver: zodResolver(shippingSchema),
@@ -43,6 +43,7 @@ export default function Checkoutsession() {
     phone: string;
     city: string;
   }) {
+     setBtnLoder(false);
     console.log(values);
     const data = await CheckoutPaymenet(cartId, values);
     window.location.href = data.session.url;
@@ -63,80 +64,84 @@ export default function Checkoutsession() {
           content="Provide your shipping details and confirm your order through our secure payment gateway."
         />
       </Head>
-
       <>
-        {loder ? (
-          <div className="text-center flex justify-center items-center min-h-screen">
-            <ClipLoader color="#000" />
-          </div>
-        ) : (
-          <div className="w-2/4 mx-auto shadow-2xl p-10 rounded-3xl">
-            <Form {...shippingForm}>
-              <form
-                action=""
-                className="space-y-3"
-                onSubmit={shippingForm.handleSubmit(checkoutPaymenetSession)}
-              >
-                <FormField
-                  control={shippingForm.control}
-                  name="details"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Details :</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormDescription />
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={shippingForm.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Phone :</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormDescription />
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={shippingForm.control}
-                  name="city"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>City :</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormDescription />
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+        <div className=" mx-auto my-10 sm:w-3/4 md:w-3/4 lg:w-3/4 xl:w-2/4 shadow-2xl p-13 rounded-2xl ">
+          <Form {...shippingForm}>
+            <form
+              action=""
+              className="space-y-3"
+              onSubmit={shippingForm.handleSubmit(checkoutPaymenetSession)}
+            >
+              <FormField
+                control={shippingForm.control}
+                name="details"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Details :</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormDescription />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={shippingForm.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone :</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormDescription />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={shippingForm.control}
+                name="city"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>City :</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormDescription />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {btnloder ? (
                 <Button
                   type="submit"
                   className="w-full bg-main mt-5 cursor-pointer"
                 >
                   Pay Payment
                 </Button>
+              ) : (
                 <Button
-                  onClick={() => {
-                    window.location.href = "/cart";
-                  }}
-                  className="w-full bg-red-600 cursor-pointer"
+                  type="submit"
+                  className="w-full bg-main mt-5 cursor-pointer"
                 >
-                  Cancel
+                  <ClipLoader color="#ffffff" />
                 </Button>
-              </form>
-            </Form>
-          </div>
-        )}
+              )}
+
+              <Button
+                type="button"
+                onClick={() => {
+                  window.location.href = "/cart";
+                }}
+                className="w-full bg-red-600 cursor-pointer"
+              >
+                Cancel
+              </Button>
+            </form>
+          </Form>
+        </div>
       </>
     </>
   );

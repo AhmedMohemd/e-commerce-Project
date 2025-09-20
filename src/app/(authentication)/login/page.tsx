@@ -54,21 +54,21 @@ export default function Login() {
       password: values.password,
       redirect: false,
     });
-     setBtnLoder(true);
-    if (data?.ok) { 
-        toast.success("success login", {
+    setBtnLoder(true);
+    if (data?.ok) {
+      toast.success("success login", {
         position: "top-right",
         icon: "👏",
-        });
-         const token = await getUserToken();
-         if (token) {
-           const data: CartData = await getCartProductData();
-           const sum = data.data.products.reduce(
-             (total, item) => (total += item.count),
-             0
-           );
-           CountData?.setCount(sum);
-         }
+      });
+      const token = await getUserToken();
+      if (token) {
+        const data: CartData = await getCartProductData();
+        const sum = data.data.products.reduce(
+          (total, item) => (total += item.count),
+          0
+        );
+        CountData?.setCount(sum);
+      }
       Route.push("/");
     } else {
       toast.error(data?.error, { icon: "❌", position: "top-right" });
@@ -82,15 +82,14 @@ export default function Login() {
           name="description"
           content="Login to your account to access all features and manage your profile."
         />
-        <meta name="author" content="Designer Name" />
-        {/* Open Graph */}
+        <meta name="author" content="Ahmed Mohamed" />
         <meta property="og:title" content="Login - Access Your Account" />
         <meta
           property="og:description"
           content="Login to your account to access all features and manage your profile."
         />
       </Head>
-      <div className="w-2/4 mx-auto my-10 shadow-2xl p-13 rounded-2xl ">
+      <div className=" mx-auto my-10 sm:w-3/4 md:w-3/4 lg:w-3/4 xl:w-2/4 shadow-2xl p-13 rounded-2xl ">
         <Form {...loginForm}>
           <form
             action=""
